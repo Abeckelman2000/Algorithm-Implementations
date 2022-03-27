@@ -1,0 +1,51 @@
+# Implementing Hash Tables in algorithms
+==========================================
+1) Two Sum
+
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
+--------------------------------------------------------------------------------------------------------------------------
+Python Implementation
+---------------------
+class Solution(object):
+    def twoSum(self, nums, target):
+        # container to hold values in nums with their respective index
+        hashTable = {}
+        for i in range(len(nums)):
+            # We can reach the target sum if the difference of target and the current value exists in the list
+            eVal = target - nums[i]
+            if (eVal) in hashTable:
+                return hashTable[target - nums[i]], i
+            # All unique values in the list, add each val to hashTable
+            hashTable[nums[i]] = i
+
+
+C++ Implementation
+------------------
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        // Hash Table(map) to hold values in nums with their respective index
+       	map<int,int> numIndex;
+	    vector<int> returnVect;
+        int eVal = 0;
+
+	    for(int i = 0; i < nums.size();i++){
+             // We can reach the target sum if the difference of target and the current value exists in the list
+            eVal = target - nums[i];
+            if(numIndex.count(eVal) > 0){
+                returnVect.push_back(i);
+                returnVect.push_back(numIndex.at(eVal));
+                return returnVect;
+            }
+            // All unique values in the list, add each val to hashTable
+            numIndex.emplace(nums[i],i);
+        }
+        return returnVect;
+    }
+};
+===============================================================================================================
