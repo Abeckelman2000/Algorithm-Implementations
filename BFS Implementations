@@ -1,6 +1,6 @@
-# BFS Implementation
-
-# Using BFS to find the depth of a Binary Search Tree in Python and C++
+# BFS Implementations
+==============================================
+1) Using BFS to find the depth of a Binary Search Tree in Python and C++
 -------------------------------------------------------------------------
 # Python Implementation
 -------------------------------------------------------------------------
@@ -59,4 +59,4 @@ public:
 	return max(leftSub,rightSub) + 1;
     }
 };
- 
+======================================================================================================
