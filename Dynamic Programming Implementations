@@ -8,15 +8,28 @@ Python Implementation
 ---------------------
 class Solution(object):
     def wordBreak(self, s, wordDict):
-        dp = [False] * (len(wordDict) + 1)
-        dp[len(wordDict)] = True
-
+        # each representing a character in s. That way previous calculations can be cached
+        dp = [False] * (len(s) + 1)
+        
+        # base case; if a word in wordDict can bring us to the end of the string, its valid
+        dp[len(s)] = True
+        
+        # from each character  s[i] ----> s[s.size() - 1], starting in reverse
         for i in range(len(s) -1, -1, -1):
-            for w in wordDict:
-                if i + len(w) <= len(s) and s[i : i + len(w)] == w:
-                    dp[i] = dp[i + len(w)]
+        
+            # check if the rest of the characters in s exist as words in wordDict
+            for word in wordDict:
+            
+                # if there are enough characters left in s to contain a word from wordDict and substring matches a word 
+                # in wordDict
+                if (i + len(word)) <= len(s) and s[i:i+len(word)] == word:
+                    dp[i] = dp[i + len(word)]
+                    
+                # if the substring is valid from this position, no need to keep validating
+                if dp[i]:
                     break
         return dp[0]
+
 
 C++ Implementation
 ------------------
