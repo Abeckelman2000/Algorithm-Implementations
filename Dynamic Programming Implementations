@@ -1,4 +1,5 @@
 Dynamic Programming Implementations
+
 ====================================
 1) Word Break
 Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.
@@ -31,5 +32,57 @@ class Solution(object):
         return dp[0]
 
 
-C++ Implementation
-------------------
+==============================================================================================================================
+2) House Robber
+You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing
+each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same
+night.
+
+Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Python Implementation
+---------------------
+class Solution(object):
+    def rob(self, nums):
+        house1, house2 = 0, 0
+        # [house1, house2, n, n+1, n+2, ....]
+        for n in nums:
+            # recurrence relationship; in any 3 elements in the list, you can either rob 1 & 3 or rob just 2
+            temp = max(house1 + n, house2)
+            # we advance our variables to the next house to continue along the street
+            house1 = house2
+            house2 = temp
+        return temp
+  
+  C++ Implementation
+  -------------------
+  class Solution{
+public:
+	int rob(vector<int>& nums) {
+		int house1 = 0;
+		int house2 = 0;
+		int temp = 0;
+
+		// [house1, house2, n, n+1, n+2, ....]
+		for(int i = 0; i < nums.size(); i++){
+			// recurrence relationship; in any 3 elements in the list, you can either rob 1 & 3 or rob just 2
+			temp = max(house1 + nums[i], house2);
+			house1 = house2;
+			house2 = temp;
+		}
+		return temp;
+
+	}
+};
+=================================================================================================================
+3) House Robber II
+You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are arranged in a 
+circle. That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and it will automatically contact
+the police if two adjacent houses were broken into on the same night.
+
+Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+----------------------------------------------------------------------------------------------------------------------------------
+Python Implementation
+---------------------
+
+  
