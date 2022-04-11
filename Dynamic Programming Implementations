@@ -74,8 +74,55 @@ public:
 
 	}
 };
+=========================================================================================================================
+3) Climbing Stairs
+You are climbing a staircase. It takes n steps to reach the top.
+
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+------------------------------------------------------------------------------------------------
+Python Solution
+---------------
+class Solution(object):
+    def climbStairs(self, n):
+      # algorithm doesnt work for staircases < 3 steps, return numWays
+        if n <= 2:
+            return n
+        dp = [0] * (n + 1)
+      # base cases for dp algorithm
+        dp[1], dp[2] = 1, 2
+      # recursive relationship: numWays for nth step: (numWays for the (n-2)th step) + (numWays for the n-1)th step)
+        for i in range(3, n + 1):
+            dp[i] = dp[i - 1] + dp[i - 2]
+        return dp[n]
+
+C++ Solution
+-------------
+class Solution {
+public:
+    int climbStairs(int n) {
+        vector<int> dp(n + 1);
+
+        // algorithm doesnt work for staircases < 3 steps, return numWays
+        if(n <= 2){
+        	return n;
+        }
+
+        // base cases for dp algorithm
+        // recursive relationship: numWays for nth step: (numWays for the (n-2)th step) + (numWays for the n-1)th step)
+        dp[1] = 1;
+        dp[2] = 2;
+
+        for (int i = 3; i <= n; i++){
+        	dp[i] = dp[i-2] + dp[i -1];
+        }
+
+        return dp[n];
+    }
+};
+
+
 =================================================================================================================
-3) House Robber II
+4) House Robber II
 You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are arranged in a 
 circle. That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and it will automatically contact
 the police if two adjacent houses were broken into on the same night.
