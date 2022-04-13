@@ -88,8 +88,10 @@ class Solution(object):
         if n <= 2:
             return n
         dp = [0] * (n + 1)
+	
       # base cases for dp algorithm
         dp[1], dp[2] = 1, 2
+	
       # recursive relationship: numWays for nth step: (numWays for the (n-2)th step) + (numWays for the n-1)th step)
         for i in range(3, n + 1):
             dp[i] = dp[i - 1] + dp[i - 2]
@@ -119,6 +121,71 @@ public:
         return dp[n];
     }
 };
+=================================================================================================================
+3) Min Cost Climbing Stairs
+You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.
+
+You can either start from the step with index 0, or the step with index 1.
+
+Return the minimum cost to reach the top of the floor. ***** the top floor is size of cost + 1 [the last step is the last element in the array] *****
+----------------------------------------------------------------------------------------------------------------------------------
+Python Implementation
+---------------------
+class Solution(object):
+    def minCostClimbingStairs(self,cost):
+        # the only step will contain the minimum cost
+        if len(cost) == 1:
+            return cost[0]
+        # the minimum step is either the first or the second step
+        if len(cost) == 2:
+            return min(cost[0], cost[1])
+        # len(cost) + 1 to represent the staircase including the top
+        dp = [0] * (len(cost) + 1)
+	
+	# from here we will do a top-down approach to find the minimum price to reach the top from each step starting in reverse
+	#recursive relationship : dp[i] = min(cost[i] + dp[i + 1], cost[i] + dp[i + 2])
+        dp[len(cost)] = 0
+        dp[len(cost) -1] = cost[len(cost) -1]
+	
+        for i in range(len(cost) - 2, -1, -1):
+            # deciding whether its more economical to jump 1 or 2 steps
+            dp[i] = min(cost[i] + dp[i + 1], cost[i] + dp[i + 2])
+	    
+        # it's possible that its cheaper to start from the second step, so ret the minimum of 1st and 2nd steps
+        return min(dp[0],dp[1])
+	
+C++ Implementation
+------------------
+class Solution {
+public:
+	int minCostClimbingStairs(vector<int>& cost){
+		//the only step will contain the minimum cost
+		if(cost.size() == 1){
+			return cost[0];
+		}
+		
+		// the minimum step is either the first or the second step
+		if(cost.size() == 2){
+			return min(cost[0], cost[1]);
+		}
+		
+		// cost.size() + 1 to represent the staircase including the top
+		vector<int> dp(cost.size() + 1);
+		
+		// from here we will do a top-down approach to find the minimum price to reach the top from each step starting in reverse
+		// recursive relationship : dp[i] = min(cost[i] + dp[i + 1], cost[i] + dp[i + 2])
+		dp[cost.size()] = 0;
+		dp[cost.size() -1] = cost[cost.size() - 1];
+		
+		for(int i = cost.size() - 2; i >= 0; i--){
+			dp[i] = min(cost[i] + dp[i + 1], cost[i] + dp[i + 2]);
+		}
+		
+		// it's possible that its cheaper to start from the second step, so ret the minimum of 1st and 2nd steps
+		return min(dp[0], dp[1]);
+	}
+};
+
 
 
 =================================================================================================================
