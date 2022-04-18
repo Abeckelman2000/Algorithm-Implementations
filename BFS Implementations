@@ -32,7 +32,7 @@ class Solution(object):
             
             depth += 1
         return depth
- --------------------------------------------
+
  # C++ Implementation
  ---------------------------------------------
  
