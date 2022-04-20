@@ -131,4 +131,52 @@ class Solution(object):
                 return False
             # if further left node and right nodes match
             return self.compareTree(root1.left, root2.left) and self.compareTree(root1.right, root2.right)
+  
+  C++ Solution
+  -----------
+  
+  Definition for a binary tree node.
+  struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode() : val(0), left(nullptr), right(nullptr) {}
+     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+  };
+  
+class Solution {
+public:
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        // if the tree is empty
+    	if(!root){
+        	return false;
+        }
+
+    	// if root and child values are all congruent
+        if(this->compareTree(root, subRoot)){
+        	return true;
+        }
+       // continue to check if any subTree matches
+        return (this->isSubtree(root->left, subRoot)) || (this->isSubtree(root->right, subRoot));
+
+    }
+
+    bool compareTree(TreeNode* r1, TreeNode* r2){
+      	// we have reached the bottom of the tree successfully, equivalent subtree found
+        	if(!r1 and !r2){
+        		return true;
+        	}
+        	
+        	if(!r1 or !r2){
+        		return false;
+        	}
+        	if(r1->val != r2->val){
+        		return false;
+        	}
+            
+            // continue to check if all children are identical to the desired subRoots
+        	return (r1->val == r2->val) && (this->compareTree(r1->left, r2->left) && this->compareTree(r1->right, r2->right));
+    }
+};
 
