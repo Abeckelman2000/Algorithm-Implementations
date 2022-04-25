@@ -49,6 +49,10 @@ public:
 };
 ==========================================================================
 
+
+
+
+
 2) Invert Binary Tree
 Given the root of a binary tree, invert the tree, and return its root.
 ----------------------------------------------------------------------
@@ -105,3 +109,40 @@ public:
     }
 };
 ==============================================================================================
+
+
+
+3) Validate Binary Search Tree
+Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+----------------------------------------------------------------------------------
+
+Python Implementation
+----------------------
+# Definition for a binary tree node.
+ class TreeNode(object):
+     def __init__(self, val=0, left=None, right=None):
+         self.val = val
+         self.left = left
+         self.right = right
+
+class Solution(object):
+    def isValidBST(self, root):
+
+        def valid(leftbound, node, rightbound):
+            # if node doesnt exist, its technically valid
+            if not node:
+                return True
+            # if the value is outside of range, return False
+            if node.val <= leftbound or node.val >= rightbound:
+                return False
+
+            # continuing down the tree
+            return valid(leftbound, node.left, node.val) and valid(node.val, node.right, rightbound)
+        # initial accepted range [-inf, inf]
+        return valid(float('-inf'), root, float('inf'))
+        
+  C++ Implementation
+  -----------------
+  
+
+
