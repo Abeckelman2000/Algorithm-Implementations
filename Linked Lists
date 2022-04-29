@@ -1,1 +1,72 @@
+Linked List Implementations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+1) Reversing a Linked List
+===========================
+
+Python Implementation
+---------------------
+# Definition for singly-linked list.
+ class ListNode(object):
+     def __init__(self, val=0, next=None):
+         self.val = val
+         self.next = next
+
+class Solution(object):
+    def reverseList(self, head):
+        temp = head
+        returnList = ListNode()
+        stack = deque()
+        # storing the values in the Linked List
+        while temp:
+            stack.appendleft(temp.val)
+            temp = temp.next
+
+        # iterating throught the list again, reversing the values
+        temp = head
+        while temp:
+            # new value for the node
+            temp.val = stack.popleft()
+            # point to the next node
+            temp = temp.next
+        return head
+        
+==========================================================================
+        
+ C++ Implementation
+ ------------------
+        // Definition for singly-linked list.
+  struct ListNode {
+      int val;
+      ListNode *next;
+      ListNode() : val(0), next(nullptr) {}
+      ListNode(int x) : val(x), next(nullptr) {}
+      ListNode(int x, ListNode *next) : val(x), next(next) {}
+  };
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        deque<int> vals;
+        ListNode* temp = head;
+
+        while(temp){
+            // push the current value into the deque
+            vals.push_back(temp->val);
+            // point to the next node in the list
+            temp = temp->next;
+        }
+        //point temp back to the head
+        temp = head;
+        // iterate through again and replace values
+        while(temp){
+            temp->val = vals.back();
+            // pop value out of deque
+            vals.pop_back();
+            // point to the next value in the list
+            temp = temp->next;
+        }
+        return head;
+    }
+};
+        
